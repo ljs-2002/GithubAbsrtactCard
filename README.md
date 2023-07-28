@@ -55,9 +55,8 @@
    - 也可在[Releases](https://github.com/ljs-2002/GithubCard/releases)中下载并解压插件；
 3. 在TamperMonkey扩展中选择**管理面板**→**实用工具**→**导入**，将源码目录下`./script`中的`GithubCard.js`文件/在Releases中下载的插件导入；
    - 也可在TamperMonkey扩展中选择**添加新脚本**，复制`./script/GithubCard.js`中的所有内容并粘贴到编辑器内；
-4. 插件已经发布到[Greasy Fork](https://greasyfork.org/zh-CN/)，搜索**GithubCard**即可找到本插件；
 
-
+**:heavy_exclamation_mark:插件已经发布到[Greasy Fork](https://greasyfork.org/zh-CN/)，搜索`GithubCard`即可找到本插件并直接安装；**
 
 ## Usage
 
@@ -84,7 +83,7 @@
 ### TamperMonkey插件使用
 
 - 安装并启用插件后，当访问`Github`仓库时，会在屏幕左侧中间显示一个绿色按钮，鼠标移动到按钮上时按钮会弹出并显示**Get Card**字样。点击该按钮即可生成并下载当前仓库的摘要卡片。
--  **注意：**在点击按钮后需要稍等几秒钟才会弹出下载提示，若一直没有下载提示请打开网页控制台查看报错。
+- :bulb: 注意：在点击按钮后需要稍等几秒钟才会弹出下载提示，若一直没有下载提示请打开网页控制台查看报错。
 
 
 
