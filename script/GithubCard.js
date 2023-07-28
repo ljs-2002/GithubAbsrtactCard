@@ -7,7 +7,7 @@
 // @grant        GM_xmlhttpRequest
 // @author       ljs-2002
 // @icon         https://github.githubassets.com/favicons/favicon.svg
-// @match        https://github.com/*
+// @match        https://github.com/*/*
 // ==/UserScript==
 
 (function () {
@@ -71,8 +71,8 @@
         if (matches) {
             var ownerName = matches[1]
             var repoName = matches[2]
-            var repoFullName = ownerName + '/' + repoName
-            console.log('current repo: ' + repoFullName)
+        }else{
+            throw new Error("can't matches current repo name!")
         }
         return new _repoName(ownerName, repoName)
     }
