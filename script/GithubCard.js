@@ -348,22 +348,31 @@
         let length = 0;
     
         for (const word of words) {
-            line += word;
+            var word_len = 0
             if (word.charCodeAt()>255) {
-                length += 16;
+                word_len = 16;
             } else {
-                length += 8 * word.length;
+                for (var i = 0;i<word.length;i++){
+                    if (word.charCodeAt(i) >64 && word.charCodeAt(i)<91) {
+                        word_len += 10
+                    }else{
+                        word_len += 8
+                    }
+                }
             }
-            
+            length += word_len
             if (length > 380) {
                 line = line.replace(/[&<>"'%{}#=();\/?@^|~]/g, match => svgEntities[match]);
                 lines.push(line);
-                line = "";
-                length = 0;
+                line = word;
+                length = word_len;
+            }else{
+                line += word;
             }
         }
     
         if (line !== "") {
+            line = line.replace(/[&<>"'%{}#=();\/?@^|~]/g, match => svgEntities[match]);
             lines.push(line);
         }
     
