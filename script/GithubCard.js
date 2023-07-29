@@ -322,8 +322,6 @@
     function descriptionToLines(description) {
         // Define regular expressions
         const wordRe = /[\u4e00-\u9fff]|[a-zA-Z0-9]+(?!=[\u4e00-\u9fff])|[^\u4e00-\u9fff\w\s]|\s/g;
-        const cnRe = /[\u4e00-\u9fff]/g;
-    
         const words = description.match(wordRe);
         let line = "";
         const lines = [];
@@ -331,7 +329,7 @@
     
         for (const word of words) {
             line += word;
-            if (cnRe.test(word)) {
+            if (word.carCodeAt()>255) {
                 length += 16;
             } else {
                 length += 8 * word.length;
