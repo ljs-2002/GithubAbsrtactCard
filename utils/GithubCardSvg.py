@@ -7,6 +7,7 @@ from typing import Union
 from .emoji import emoji
 from .GithubInfo import GithubInfo
 from .language_color import language_color_dict
+from .svg_entities import svg_entities
 
 class GithubCardSvg:
 
@@ -130,7 +131,6 @@ class GithubCardSvg:
     )
 
     word_re = re.compile(r'[\u4e00-\u9fff]|[a-zA-Z0-9]+(?!=[\u4e00-\u9fff])|[^\u4e00-\u9fff\w\s]|\s',re.S)
-    cn_re = re.compile(r'[\u4e00-\u9fff]',re.S)
 
     @staticmethod
     def __create_info(template:str, icon_x:int, icon_y:int,
@@ -187,7 +187,7 @@ class GithubCardSvg:
         length = 0
         for word in words:
             line += word
-            if cls.cn_re.match(word):
+            if ord(word)>255:
                 length += 16
             else:
                 length += 8*len(word)
@@ -197,6 +197,7 @@ class GithubCardSvg:
                 line = ""
                 length=0
         if line != "":
+            line = ''.join(svg_entities.get(c, c) for c in line)
             lines.append(line)
         return lines
 

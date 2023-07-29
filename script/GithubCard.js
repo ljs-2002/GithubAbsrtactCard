@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         GithubCard
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  生成Github的简介卡片
-// @connect      https://avatars.githubusercontent.com/
+// @connect      avatars.githubusercontent.com
 // @grant        GM_xmlhttpRequest
 // @author       ljs-2002
 // @icon         https://github.githubassets.com/favicons/favicon.svg
@@ -320,7 +320,27 @@
     }
 
     function descriptionToLines(description) {
-        // Define regular expressions
+        const svgEntities = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&apos;',
+            '%': '&#37;',
+            '{': '&#123;',
+            '}': '&#125;',
+            '#': '&#35;',
+            '=': '&#61;',
+            '(': '&#40;',
+            ')': '&#41;',
+            ';': '&#59;',
+            '/': '&#47;',
+            '?': '&#63;',
+            '@': '&#64;',
+            '^': '&#94;',
+            '|': '&#124;',
+            '~': '&#126;'
+          };
         const wordRe = /[\u4e00-\u9fff]|[a-zA-Z0-9]+(?!=[\u4e00-\u9fff])|[^\u4e00-\u9fff\w\s]|\s/g;
         const words = description.match(wordRe);
         let line = "";
@@ -329,13 +349,14 @@
     
         for (const word of words) {
             line += word;
-            if (word.carCodeAt()>255) {
+            if (word.charCodeAt()>255) {
                 length += 16;
             } else {
                 length += 8 * word.length;
             }
-    
+            
             if (length > 380) {
+                line = line.replace(/[&<>"'%{}#=();\/?@^|~]/g, match => svgEntities[match]);
                 lines.push(line);
                 line = "";
                 length = 0;
